@@ -309,7 +309,7 @@ static const CGFloat kCancelButtonShadowHeightRatio = 0.333f;
             // leave an empty space on the top to make the control look similar to UIActionSheet
             topInset = (CGFloat)round(CGRectGetHeight(self.tableView.frame) * kTopSpaceMarginFraction);
         }
-        self.tableView.contentInset = UIEdgeInsetsMake(topInset, 0, safeAreaBottom, 0);
+        self.tableView.contentInset = UIEdgeInsetsMake(topInset, 0, safeAreaBottom + self.cancelButton.bounds.size.height, 0);
 
         self.tableView.bounces = [self.cancelOnPanGestureEnabled boolValue] || !buttonsFitInWithoutScrolling;
     };
@@ -469,7 +469,7 @@ static const CGFloat kCancelButtonShadowHeightRatio = 0.333f;
     CGRect frame = CGRectMake(0,
                               statusBarHeight,
                               CGRectGetWidth(self.bounds),
-                              CGRectGetHeight(self.bounds) - statusBarHeight - self.cancelButtonHeight);
+                              CGRectGetHeight(self.bounds) - statusBarHeight - self.cancelButtonHeight - self.superview.safeAreaInsets.bottom);
 
     UITableView *tableView = [[UITableView alloc] initWithFrame:frame];
     tableView.backgroundColor = [UIColor clearColor];
