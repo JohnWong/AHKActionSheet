@@ -287,8 +287,10 @@ static const CGFloat kCancelButtonShadowHeightRatio = 0.333f;
     };
 
     void(^delayedAnimations)(void) = ^(void) {
+        CGFloat safeAreaBottom =
+        self.superview.safeAreaInsets.bottom;
         self.cancelButton.frame = CGRectMake(0,
-                                             CGRectGetMaxY(self.bounds) - self.cancelButtonHeight,
+                                             CGRectGetMaxY(self.bounds) - self.cancelButtonHeight - safeAreaBottom,
                                              CGRectGetWidth(self.bounds),
                                              self.cancelButtonHeight);
             
@@ -296,7 +298,7 @@ static const CGFloat kCancelButtonShadowHeightRatio = 0.333f;
 
 
         // manual calculation of table's contentSize.height
-        CGFloat tableContentHeight = [self.items count] * self.buttonHeight + CGRectGetHeight(self.tableView.tableHeaderView.frame);
+        CGFloat tableContentHeight = [self.items count] * self.buttonHeight + CGRectGetHeight(self.tableView.tableHeaderView.frame) + safeAreaBottom;
 
         CGFloat topInset;
         BOOL buttonsFitInWithoutScrolling = tableContentHeight < CGRectGetHeight(self.tableView.frame) * (1.0 - kTopSpaceMarginFraction);
@@ -307,7 +309,7 @@ static const CGFloat kCancelButtonShadowHeightRatio = 0.333f;
             // leave an empty space on the top to make the control look similar to UIActionSheet
             topInset = (CGFloat)round(CGRectGetHeight(self.tableView.frame) * kTopSpaceMarginFraction);
         }
-        self.tableView.contentInset = UIEdgeInsetsMake(topInset, 0, 0, 0);
+        self.tableView.contentInset = UIEdgeInsetsMake(topInset, 0, safeAreaBottom, 0);
 
         self.tableView.bounces = [self.cancelOnPanGestureEnabled boolValue] || !buttonsFitInWithoutScrolling;
     };

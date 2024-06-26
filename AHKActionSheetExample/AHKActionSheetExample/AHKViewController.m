@@ -38,12 +38,14 @@
                                 NSLog(@"Info tapped");
                             }];
 
-    [actionSheet addButtonWithTitle:NSLocalizedString(@"Add to Favorites", nil)
-                              image:[UIImage imageNamed:@"Icon2"]
-                               type:AHKActionSheetButtonTypeDefault
-                            handler:^(AHKActionSheet *as) {
-                                NSLog(@"Favorite tapped");
-                            }];
+    for (int i = 0; i < 20 ; i ++ ){
+        [actionSheet addButtonWithTitle:NSLocalizedString(@"Add to Favorites", nil)
+                                  image:[UIImage imageNamed:@"Icon2"]
+                                   type:AHKActionSheetButtonTypeDefault
+                                handler:^(AHKActionSheet *as) {
+            NSLog(@"Favorite tapped");
+        }];
+    }
 
     [actionSheet addButtonWithTitle:NSLocalizedString(@"Share", nil)
                               image:[UIImage imageNamed:@"Icon3"]
